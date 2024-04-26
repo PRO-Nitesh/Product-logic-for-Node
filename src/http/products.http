@@ -15,8 +15,9 @@ POST {{ baseURL }}/products
 Content-Type: application/json
 
 {
-    "product_name": "car",
-    "quantity": "2"
+    "ProductName": "car",
+    "Quantity": 2,
+    "IsActive":true
 }
 
 ###
@@ -25,8 +26,9 @@ PUT {{ baseURL }}/products/1
 Content-Type: application/json
 
 {
-    "product_name": "car",
-    "quantity": "2"
+    "ProductName": "car",
+    "Quantity": 2,
+    "IsActive":true
 }
 
 ###

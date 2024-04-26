@@ -2,11 +2,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
 import { Product } from '@interfaces/products.interface';
-import { Productervice } from '@services/products.service';
+import { ProductService } from '@services/products.service';
 
 export class ProductController {
  
-    public product = Container.get(Productervice);
+    public product = Container.get(ProductService);
 
     public getProducts = async (req: Request, res: Response, next: NextFunction) => {
       try {
@@ -21,7 +21,8 @@ export class ProductController {
     public getProductById = async (req: Request, res: Response, next: NextFunction) => {
       try {
         const product_id: string = req.params.id;
-        const findOneProductData: Product = await this.product.findProductById(product_id);
+        const productData : Product=req.body;
+        const findOneProductData: Product = await this.product.findProductById(product_id,productData);
   
         res.status(200).json({ data: findOneProductData, message: 'findOne' });
       } catch (error) {
@@ -44,7 +45,7 @@ export class ProductController {
       try {
         const product_id: string = req.params.id;
         const productData: Product = req.body;
-        const updateProductData: Product = await this.product.updateProduct(product_id, productData);
+        const updateProductData: Product = await this.product.updateProducts(product_id, productData);
   
         res.status(200).json({ data: updateProductData, message: 'updated' });
       } catch (error) {
@@ -52,10 +53,11 @@ export class ProductController {
       }
     };
   
-    public deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+     public deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
       try {
         const product_id: string = req.params.id;
-        const deleteProductData: Product = await this.product.deleteProduct(product_id);
+        const productData: Product=req.body;
+        const deleteProductData: Product = await this.product.deleteProduct(product_id,productData);
   
         res.status(200).json({ data: deleteProductData, message: 'deleted' });
       } catch (error) {

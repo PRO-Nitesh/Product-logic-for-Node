@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 export interface Product {
-  ProductId: string;
+  ProductId?: string;
   ProductName: string;
   Quantity: number;
   IsActive: boolean;
