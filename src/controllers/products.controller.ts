@@ -41,19 +41,30 @@ export class ProductController {
       }
     };
   
+    // public updateProduct = async (req: Request, res: Response, next: NextFunction) => {
+    //   try {
+    //     const product_id: string = req.params.id;
+    //     const productData: Product = req.body;
+    //     const updateProductData: Product = await this.product.updateProducts(product_id, productData);
+  
+    //     res.status(200).json({ data: updateProductData, message: 'updated' });
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // };
     public updateProduct = async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const product_id: string = req.params.id;
+        const ProductId: string = req.params.id;
         const productData: Product = req.body;
-        const updateProductData: Product = await this.product.updateProducts(product_id, productData);
+        const updateProductData: Product = await this.product.updateProduct(ProductId, productData);
   
         res.status(200).json({ data: updateProductData, message: 'updated' });
       } catch (error) {
         next(error);
-      }
-    };
-  
-     public deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+  }
+  };
+ 
+    public deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
       try {
         const product_id: string = req.params.id;
         const productData: Product=req.body;

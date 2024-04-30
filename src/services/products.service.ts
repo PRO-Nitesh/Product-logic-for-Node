@@ -27,16 +27,23 @@ export class ProductService {
     return createUserData;
   }
 
-  public async updateProducts(_id: string, productData: Product): Promise<Product> {
-    if (productData.ProductName) {
-      const findProduct: Product = await ProductModel.findOne({ ProductName: productData.ProductName });
-      if (findProduct && findProduct.ProductId != _id) throw new HttpException(409, `This product ${productData.ProductName} already exists`);
-    }
-    const updateProductById: Product = await ProductModel.findByIdAndUpdate(_id, { productData });
-    if (!updateProductById) throw new HttpException(409, "Product doesn't exist");
+  // public async updateProducts(_id: string, productData: Product): Promise<Product> {
+  //   if (productData.ProductName) {
+  //     const findProduct: Product = await ProductModel.findOne({ ProductName: productData.ProductName });
+  //     if (findProduct && findProduct.ProductId != _id) throw new HttpException(409, `This product ${productData.ProductName} already exists`);
+  //   }
+  //   const updateProductById: Product = await ProductModel.findByIdAndUpdate(_id, { productData });
+  //   if (!updateProductById) throw new HttpException(409, "Product doesn't exist");
 
+  //   return updateProductById;
+  // }
+
+
+  public async updateProduct(_Id: string, productData: Product): Promise<Product> {
+    const updateProductById: Product = await ProductModel.findByIdAndUpdate( (productData._id), { ...productData });
+   
     return updateProductById;
-  }
+}
 
 
   public async deleteProduct(ProductId: string,productData:Product): Promise<Product> {
