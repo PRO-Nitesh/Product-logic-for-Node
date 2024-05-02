@@ -13,7 +13,8 @@ import { dbConnection } from '@database';
 import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
-
+import fileUpload from 'express-fileupload';
+import multer from 'multer';
 export class App {
   public app: express.Application;
   public env: string;

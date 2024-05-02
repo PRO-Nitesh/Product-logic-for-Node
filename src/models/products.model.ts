@@ -5,8 +5,6 @@ import { Product } from '@interfaces/products.interface';
 const ProductSchema: Schema = new Schema({
   ProductId: {
     type: String,
-    required: true,
-    unique: true,
   },
   ProductName: {
     type: String,

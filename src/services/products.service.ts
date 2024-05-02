@@ -8,10 +8,19 @@ import { randomUUID } from 'crypto';
 
 @Service()
 export class ProductService {
-  public async findAllProduct(): Promise<Product[]> {
-    const users: Product[] = await ProductModel.find();
-    return users;
-  }
+  // public async findAllProduct(): Promise<Product[]> {
+  //   const users: Product[] = await ProductModel.find();
+  //   return users;
+  // }
+ /*USING QUERY PARAMS FOR FINDALLPRODUCT */
+
+public async findAllProduct(queryParams: any): Promise<Product[]> {
+  const products: Product[] = await ProductModel.find(queryParams);
+  return products;
+}
+
+
+
 
   public async findProductById(productId: string,productData:Product): Promise<Product> {
     const findProductById: Product = await ProductModel.findOne({ ProductId: productData.ProductId});
@@ -27,28 +36,25 @@ export class ProductService {
     return createUserData;
   }
 
-  // public async updateProducts(_id: string, productData: Product): Promise<Product> {
-  //   if (productData.ProductName) {
-  //     const findProduct: Product = await ProductModel.findOne({ ProductName: productData.ProductName });
-  //     if (findProduct && findProduct.ProductId != _id) throw new HttpException(409, `This product ${productData.ProductName} already exists`);
-  //   }
-  //   const updateProductById: Product = await ProductModel.findByIdAndUpdate(_id, { productData });
-  //   if (!updateProductById) throw new HttpException(409, "Product doesn't exist");
-
-  //   return updateProductById;
-  // }
-
-
-  public async updateProduct(_Id: string, productData: Product): Promise<Product> {
-    const updateProductById: Product = await ProductModel.findByIdAndUpdate( (productData._id), { ...productData });
+  public async updateProduct(_id: string, productData: Product): Promise<Product> {
+    
+    const updateProductById: Product = await ProductModel.findByIdAndUpdate( _id, { ...productData });
    
     return updateProductById;
-}
+  }
 
-
-  public async deleteProduct(ProductId: string,productData:Product): Promise<Product> {
-    const deleteProductById: Product = await ProductModel.findByIdAndDelete(productData.ProductId,{...productData});
+  public async deleteProduct(_id: string): Promise<Product> {
+    const deleteProductById: Product = await ProductModel.findByIdAndDelete(_id);
 
     return deleteProductById;
   }
+  
+  public async createMultipleProducts(products: Product[]): Promise<void> {
+    try {
+      await ProductModel.insertMany(products);
+    } catch (error) {
+      throw new Error('Failed to create multiple products');
+    }
+  }
+  
 }
